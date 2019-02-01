@@ -1,9 +1,33 @@
+%% User Prompts
 messageTriangle = 'Please enter the cartesian coordinates of the vertices of the triangle in the form: ';
-format = '[X1 Y1 X2 Y2 X3 Y3] \nDO NOT FORGET TO START AND END WITH THE SQUARE BRACKETS!\n>> ';
-triangleCoor=[];
+formatTriangle = '[X1 Y1 X2 Y2 X3 Y3] \nDO NOT FORGET TO START AND END WITH THE SQUARE BRACKETS!\n>>  ';
 
-triangleCoor = input(strcat(message,format));
-disp(triangleCoor);
+messagePoint = 'Please enter the cartesian coordinates of the point to convert it to barycentric in the form: ';
+formatPoint = '[X4 Y4] \nDO NOT FORGET TO START AND END WITH THE SQUARE BRACKETS!\n>>  ';
 
-if len(triangleCoor) ~= 6:
-    error("You didn't enter the 6 parameters.  Try A");
+triangleCoor = input(strcat(messageTriangle,formatTriangle));
+%%disp(triangleCoor);
+
+cToBCoor = input(strcat(messagePoint,formatPoint));
+%%disp(cToBCoor);
+
+%% Error Checking
+if size(triangleCoor,2) ~= 6
+    error("You didn't enter the 6 required parameters for the triangle vertices.  Try Again");
+end
+
+if size(cToBCoor,2) ~= 2
+    error("You didn't enter the arbitrary point.  Try Again");
+end
+
+%% Method call
+[C1, C2, C3] = cartesianToBarycentric(triangleCoor, cToBCoor);
+
+fprintf("",)
+
+%% Checks and see if the point is within the triangle
+if C1<0 | C2<0 | C3<0
+    disp("Coordinate is outside the triangle");
+else
+    disp("Coordinate is inside the triangle");
+end
