@@ -31,3 +31,10 @@ if C1<0 | C2<0 | C3<0
 else
     fprintf('Coordinate is inside the triangle\n');
 end
+
+%% Plot the result
+line([triangleCoor(1) triangleCoor(3)], [triangleCoor(2) triangleCoor(4)]);
+line([triangleCoor(1) triangleCoor(5)], [triangleCoor(2) triangleCoor(6)]);
+line([triangleCoor(3) triangleCoor(5)], [triangleCoor(4) triangleCoor(6)]);
+hold on
+plot(cToBCoor(1), cToBCoor(2),'*');
