@@ -22,10 +22,6 @@ detOfA1=det(A1);
 detOfA2=det(A2);
 detOfA3=det(A3);
 
-% Computing coefficients
 
-C1=detOfA1/detOfA;
-C2=detOfA2/detOfA;
-C3=detOfA3/detOfA;
 
 end
