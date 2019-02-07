@@ -31,3 +31,6 @@ th = 0:pi/50:2*pi;
 xunit = circleInfo(3) * cos(th) + circleInfo(1);
 yunit = circleInfo(3) * sin(th) + circleInfo(2);
 plot(xunit, yunit);
+
+%% Render a line segment
+line([lineSegment(1) lineSegment(3)], [lineSegment(2) lineSegment(4)]);

@@ -7,11 +7,11 @@ formatCircle = '[H K R] \nDO NOT FORGET TO START AND END WITH THE SQUARE BRACKET
 
 lineSegment = input(strcat(messageSegment,formatSegment));
 
-cicleInfo = input(strcat(messageCircle,formatCircle));
+circleInfo = input(strcat(messageCircle,formatCircle));
 %%disp(cToBCoor);
 
 %% Error Checking
-if size(triangleCoor,2) ~= 4
+if size(lineSegment,2) ~= 4
     error("You didn't enter the 4 required parameters for the line segment.  Try Again");
 end
 
@@ -29,5 +29,6 @@ end
 hold on
 th = 0:pi/50:2*pi;
 xunit = circleInfo(3) * cos(th) + circleInfo(1);
-yunit = circleInfo(3) * sin(th) + y;
+yunit = circleInfo(3) * sin(th) + circleInfo(2);
 plot(xunit, yunit);
+
