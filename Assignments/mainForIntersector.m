@@ -31,11 +31,7 @@ th = 0:pi/50:2*pi;
 xunit = circleInfo(3) * cos(th) + circleInfo(1);
 yunit = circleInfo(3) * sin(th) + circleInfo(2);
 
-line([lineSegment(1) lineSegment(3)], [lineSegment(2) lineSegment(4)]);
-hold on
-plot(xunit, yunit);
-
-%% Render a line segment
+%% Actual Computation
 
 %function call
 t=Intersector(lineSegment,circleInfo);
@@ -45,12 +41,12 @@ answerVector=[];
 z=0;
 if isreal(t(1)) && (t(1)>=0 && t(1)<=1)
     z=z+1;
-    answerVector(z)=t(z);
+    answerVector(z)=t(1);
 end
 
 if isreal(t(2)) && (t(2)>=0 && t(2)<=1)
     z=z+1;
-    answerVector(z)=t(z);
+    answerVector(z)=t(2);
 end
 
 fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersects the circle at %i places.\n\n",t(1),t(2),z)
@@ -59,7 +55,11 @@ fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersec
 xInt=[];
 yInt=[];
 
+line([lineSegment(1) lineSegment(3)], [lineSegment(2) lineSegment(4)]);
+hold on
+plot(xunit, yunit);
 for i=1:size(answerVector,2)
     xInt(i)=(answerVector(i).*lineSegment(1))+((1-answerVector(i)).*lineSegment(3));
     yInt(i)=(answerVector(i).*lineSegment(2))+((1-answerVector(i)).*lineSegment(4));
+    plot(xInt(i),yInt(i),'-o');
 end
