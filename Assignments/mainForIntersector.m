@@ -41,7 +41,7 @@ plot(xunit, yunit);
 t=Intersector(lineSegment,circleInfo);
 
 %checks the number of possible solutions
-answerVector=0;
+answerVector=[];
 z=0;
 if isreal(t(1)) && (t(1)>=0 && t(1)<=1)
     z=z+1;
@@ -54,3 +54,12 @@ if isreal(t(2)) && (t(2)>=0 && t(2)<=1)
 end
 
 fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersects the circle at %i places.\n\n",t(1),t(2),z)
+
+%Compute the answers from t to get the points of intersection
+xInt=[];
+yInt=[];
+
+for i=1:size(answerVector,2)
+    xInt(i)=(answerVector(i).*lineSegment(1))+((1-answerVector(i)).*lineSegment(3));
+    yInt(i)=(answerVector(i).*lineSegment(2))+((1-answerVector(i)).*lineSegment(4));
+end
