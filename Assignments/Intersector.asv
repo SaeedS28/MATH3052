@@ -1,12 +1,12 @@
-function Intersector(segment,circle)
+function [outputArg1,outputArg2] = Intersector(segment,circle)
 %INTERSECTOR Determines whether a line segment intersects a circle
-%   Method finds the values of t using the quadratic formula
+%   Detailed explanation goes here
 px1=segment(1);
 px2=segment(3);
 py1=segment(2);
 py2=segment(4);
 
 cH=circle(1);
-cK=circle(2);
+cK=
 end
 
