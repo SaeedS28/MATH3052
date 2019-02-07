@@ -26,11 +26,27 @@ end
 
 %% Render a circle
 % code from: https://www.mathworks.com/matlabcentral/answers/98665-how-do-i-plot-a-circle-with-a-given-radius-and-center
-hold on
+
 th = 0:pi/50:2*pi;
 xunit = circleInfo(3) * cos(th) + circleInfo(1);
 yunit = circleInfo(3) * sin(th) + circleInfo(2);
+
+line([lineSegment(1) lineSegment(3)], [lineSegment(2) lineSegment(4)]);
+hold on
 plot(xunit, yunit);
 
 %% Render a line segment
-line([lineSegment(1) lineSegment(3)], [lineSegment(2) lineSegment(4)]);
+
+%function call
+t=Intersector(lineSegment,circleInfo);
+
+z=0;
+if isreal(t(1)) && (t(1)>=0 && t(1)<=1)
+    z=z+1;
+end
+
+if isreal(t(2)) && (t(2)>=0 && t(2)<=1)
+    z=z+1;
+end
+
+fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersects the circle at %i places.\n\n",t(1),t(2),z)
