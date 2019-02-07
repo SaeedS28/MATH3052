@@ -40,4 +40,15 @@ plot(xunit, yunit);
 %function call
 t=Intersector(lineSegment,circleInfo);
 
+%checks the number of possible solutions
 
+z=0;
+if isreal(t(1)) && (t(1)>=0 && t(1)<=1)
+    z=z+1;
+end
+
+if isreal(t(2)) && (t(2)>=0 && t(2)<=1)
+    z=z+1;
+end
+
+fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersects the circle at %i places.\n\n",t(1),t(2),z)

@@ -15,7 +15,7 @@ if size(lineSegment,2) ~= 4
     error("You didn't enter the 4 required parameters for the line segment.  Try Again");
 end
 
-if size(cicleInfo,2) ~= 3
+if size(circleInfo,2) ~= 3
     error("You didn't enter the required parameters for the circle.  Try Again");
 end
 
@@ -40,13 +40,17 @@ plot(xunit, yunit);
 %function call
 t=Intersector(lineSegment,circleInfo);
 
+%checks the number of possible solutions
+answerVector=0;
 z=0;
 if isreal(t(1)) && (t(1)>=0 && t(1)<=1)
     z=z+1;
+    answerVector(z)=t(z);
 end
 
 if isreal(t(2)) && (t(2)>=0 && t(2)<=1)
     z=z+1;
+    answerVector(z)=t(z);
 end
 
 fprintf("\nThe values of t's are: (%.5f,%.5f). This means that the line intersects the circle at %i places.\n\n",t(1),t(2),z)
