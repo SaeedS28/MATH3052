@@ -63,3 +63,12 @@ for i=1:size(answerVector,2)
     yInt(i)=(answerVector(i).*lineSegment(2))+((1-answerVector(i)).*lineSegment(4));
     plot(xInt(i),yInt(i),'-o');
 end
+
+if size(answerVector,2)>0
+    fprintf("\nThe points of intersection are:\n");
+    for k=1:size(answerVector,2)
+        fprintf("[%.5f, %.5f] ",xInt(k),yInt(k));
+    end
+    fprintf("\n");
+end
+hold off;

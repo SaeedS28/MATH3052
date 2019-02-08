@@ -61,5 +61,8 @@ plot(xunit, yunit);
 for i=1:size(answerVector,2)
     xInt(i)=(answerVector(i).*lineSegment(1))+((1-answerVector(i)).*lineSegment(3));
     yInt(i)=(answerVector(i).*lineSegment(2))+((1-answerVector(i)).*lineSegment(4));
-    plot(xInt(i),yInt(i),'*');
+    plot(xInt(i),yInt(i),'-o');
 end
+
+if size(answerVector,2)>0
+    fprintf("\nThe points of intersection are:\n\n")
