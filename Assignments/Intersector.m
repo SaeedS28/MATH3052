@@ -23,8 +23,8 @@ C=(cH.^2)+(px2.^2)+(py2.^2)-(cRad.^2)+(cK.^2)-(2.*cK.*py2);
 
 % Finding the roots of this quadratic equation
 t=zeros(2,1);
-disc=sqrt(B^2-4*A*C);
-t(1)=(-B+disc)./(2*A);
-t(2)=(-B-disc)./(2*A);
+disc=sqrt(B.^2-4.*A.*C);
+t(1)=(-B+disc)./(2.*A);
+t(2)=(-B-disc)./(2.*A);
 
 end
