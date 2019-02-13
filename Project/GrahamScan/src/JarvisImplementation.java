@@ -1,51 +1,35 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class JarvisImplementation {
 
-	public static ArrayList<Point> computeJarvis(ArrayList<Point> points) {
-		ArrayList<Point> cHull = new ArrayList<Point>();
+	public static Set<Point> computeJarvis(ArrayList<Point> points) {
+		Set<Point> cHull = new HashSet<Point>();
 		
-		int leftMostPointIndex=0;
-		
-		//fetches the leftmost point to add to the convex list
-		for(int i=0;i<points.size();i++) {
-			if(points.get(i).getX() < points.get(leftMostPointIndex).getX()) {
-				leftMostPointIndex=i;
-			}
-		}
-		
-		// Move in the counter-clockwise direction
-		int left = leftMostPointIndex;
-		int right;
-		
-		do {
-			cHull.add(points.get(left));
-			
-			right=(left+1)%points.size();
-			
-			for(int i=0;i<points.size(); i++) {
-				if(crossProduct(points.get(left),points.get(i),points.get(right))==1) {
-					right=i;
-				}
-			}
-			left=right;
-			
-		}while(left != leftMostPointIndex);
 		
 		return cHull;
 	}
 	
-	// computes the cross product of 2 vectors
-	public static int crossProduct(Point a, Point b, Point c) {
-		int result= (b.getY()-a.getY())*(c.getX()-b.getX())-
-				(b.getX()-a.getX())*(c.getY()-b.getY());
+	private double calculateSquareDistance(Point A, Point B) {
+		double squareX=Math.pow(A.getX()-B.getX(), 2);
+		double squareY=Math.pow(A.getY()-B.getY(), 2);
 		
-		if (result==9) {
-			return 0; // Point is collinear and we take the furthest of these points
-		}
-		if(result>0) {
-			return -1; // point is furthest away
-		}
-		return 1; // a better match can be found
+		return (squareX+squareY);
+	}
+	// computes the cross product of 2 vectors
+	private int crossProduct(Point a, Point b, Point c) {
+		
+		// generate AB vector
+		int bToAX=a.getX()-b.getX();
+		int bToAY=a.getY()-b.getY();
+		
+		// generate BC vector
+		int bToCX=c.getX()-b.getX();
+		int bToCY=c.getY()-b.getY();
+		
+		// compute the result
+		int result = (bToAX*bToCY)-(bToAY*bToCX);
+		return result;
 	}
 }
