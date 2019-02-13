@@ -14,6 +14,24 @@ public class JarvisImplementation {
 			}
 		}
 		
+		// Move in the counter-clockwise direction
+		int left = leftMostPointIndex;
+		int right;
+		
+		do {
+			cHull.add(points.get(left));
+			
+			right=(left+1)%points.size();
+			
+			for(int i=0;i<points.size(); i++) {
+				if(crossProduct(points.get(left),points.get(i),points.get(right))==1) {
+					right=i;
+				}
+			}
+			left=right;
+			
+		}while(left != leftMostPointIndex);
+		
 		return cHull;
 	}
 	
@@ -26,8 +44,8 @@ public class JarvisImplementation {
 			return 0; // Point is collinear and we take the furthest of these points
 		}
 		if(result>0) {
-			return 1; // point is furthest away
+			return -1; // point is furthest away
 		}
-		return -1; // a better match can be found
+		return 1; // a better match can be found
 	}
 }
