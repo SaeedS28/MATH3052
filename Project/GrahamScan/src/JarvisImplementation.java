@@ -7,6 +7,15 @@ public class JarvisImplementation {
 	public static Set<Point> computeJarvis(ArrayList<Point> points) {
 		Set<Point> cHull = new HashSet<Point>();
 		
+		// leftmost point
+		Point placeHolder=points.get(0);
+		int firstPosition=0;
+		for(int i=1;i<points.size();i++) {
+			if(points.get(i).getX()<placeHolder.getX()) {
+				firstPosition=i;
+				placeHolder=points.get(i);
+			}
+		}
 		
 		return cHull;
 	}
