@@ -2,8 +2,19 @@ import java.util.ArrayList;
 
 public class JarvisImplementation {
 
-	public static void computeJarvis(ArrayList<Point> points) {
+	public static ArrayList<Point> computeJarvis(ArrayList<Point> points) {
+		ArrayList<Point> cHull = new ArrayList<Point>();
 		
+		int leftMostPointIndex=0;
+		
+		//fetches the leftmost point to add to the convex list
+		for(int i=0;i<points.size();i++) {
+			if(points.get(i).getX() < points.get(leftMostPointIndex).getX()) {
+				leftMostPointIndex=i;
+			}
+		}
+		
+		return cHull;
 	}
 	
 	// computes the cross product of 2 vectors
