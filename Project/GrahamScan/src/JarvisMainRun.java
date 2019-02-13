@@ -12,8 +12,10 @@ public class JarvisMainRun {
 		points.add(new Point(3,0));
 		points.add(new Point(0,0));
 		points.add(new Point(3,3));
+		points.add(new Point(2,6));
 
-		ArrayList<Point> convex = JarvisImplementation.computeJarvis(points);
+		JarvisImplementation jo = new JarvisImplementation();
+		ArrayList<Point> convex = jo.computeJarvis(points);
 		
 		// Print Result 
         for (Point temp : convex) {

@@ -4,41 +4,53 @@ import java.util.Set;
 
 public class JarvisImplementation {
 
-	public static Set<Point> computeJarvis(ArrayList<Point> points) {
-		Set<Point> cHull = new HashSet<Point>();
-		
-		// leftmost point
-		Point placeHolder=points.get(0);
-		int firstPosition=0;
-		for(int i=1;i<points.size();i++) {
-			if(points.get(i).getX()<placeHolder.getX()) {
-				firstPosition=i;
-				placeHolder=points.get(i);
-			}
-		}
-		cHull.add(placeHolder);
-		return cHull;
-	}
-	
-	private double calculateSquareDistance(Point A, Point B) {
-		double squareX=Math.pow(A.getX()-B.getX(), 2);
-		double squareY=Math.pow(A.getY()-B.getY(), 2);
-		
-		return (squareX+squareY);
-	}
-	// computes the cross product of 2 vectors
-	private int crossProduct(Point a, Point b, Point c) {
-		
-		// generate AB vector
-		int bToAX=a.getX()-b.getX();
-		int bToAY=a.getY()-b.getY();
-		
-		// generate BC vector
-		int bToCX=c.getX()-b.getX();
-		int bToCY=c.getY()-b.getY();
-		
-		// compute the result
-		int result = (bToAX*bToCY)-(bToAY*bToCX);
-		return result;
-	}
+	    public static ArrayList<Point> computeJarvis(ArrayList<Point> points) { 
+	         
+	        if (points.size() < 3) {
+	        	throw new IllegalArgumentException("Need more than 3 points");
+	        }
+	       
+	         
+	        ArrayList<Point> hull = new ArrayList<Point>(); 
+	       
+	        // Find the leftmost point 
+	        int leftTemp = 0; 
+	        for (int i = 1; i < points.size(); i++) 
+	            if (points.get(i).getX() < points.get(leftTemp).getX()) {
+	            	leftTemp = i;
+	            }
+
+	        int placeHolder = leftTemp;
+	        int right; 
+	        
+	        do {
+	            hull.add(points.get(placeHolder)); 
+	       
+	            right = (placeHolder + 1) % points.size(); 
+	              
+	            for (int i = 0; i < points.size(); i++) { 
+	               if (product(points.get(placeHolder), points.get(i), points.get(right))== 2) 
+	                   right = i; 
+	            } 
+	       
+	            placeHolder= right; 
+	       
+	        } while(placeHolder != leftTemp);  
+
+	        return hull;
+	        
+	    }
+	    
+	 // works couterclock-wise so the product is negative if the point is on the right of all the pointsa 
+		 public static int product(Point a, Point b, Point c) { 
+		        int val = (b.getY() - a.getY()) * (c.getX() - b.getX()) -(b.getX() - a.getX()) * (c.getY() - b.getY()); 
+		       
+		        if (val == 0) {
+		        	return 0;  // collinear point 
+		        }
+		        if(val>0) {
+		        	return 1;
+		        }
+		        return 2; 
+		    } 
 }
