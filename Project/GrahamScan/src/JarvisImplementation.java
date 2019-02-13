@@ -16,7 +16,7 @@ public class JarvisImplementation {
 				placeHolder=points.get(i);
 			}
 		}
-		
+		cHull.add(placeHolder);
 		return cHull;
 	}
 	
