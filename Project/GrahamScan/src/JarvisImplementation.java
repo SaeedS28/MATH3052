@@ -65,8 +65,8 @@ public class JarvisImplementation {
 				 double dist=Math.sqrt(Math.pow(points.get(i).getX()-points.get(i-1).getX(), 2)+Math.pow(points.get(i).getY()-points.get(i-1).getY(), 2));
 				 distances.add(dist);
 			 }
-			 double backDist=Math.sqrt(Math.pow(points.get(0).getX()-points.get(points.size()).getX(), 2)+
-					 Math.pow(points.get(0).getY()-points.get(points.size()).getY(), 2));
+			 double backDist=Math.sqrt(Math.pow(points.get(0).getX()-points.get(points.size()-1).getX(), 2)+
+					 Math.pow(points.get(0).getY()-points.get(points.size()-1).getY(), 2));
 			 
 			 distances.add(backDist);
 			 return distances;
