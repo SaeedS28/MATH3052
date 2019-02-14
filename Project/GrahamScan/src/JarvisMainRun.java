@@ -16,10 +16,16 @@ public class JarvisMainRun {
 
 		JarvisImplementation jo = new JarvisImplementation();
 		ArrayList<Point> convex = jo.computeJarvis(points);
+		ArrayList<Double> dist = jo.computeDistance(convex);
 		
 		// Print Result 
         for (Point temp : convex) {
             System.out.println("(" + temp.getX() + ", " +temp.getY() + ")");
+        }
+        
+        
+        for (double temp : dist) {
+            System.out.println("(" + temp+")");
         }
 	}
 

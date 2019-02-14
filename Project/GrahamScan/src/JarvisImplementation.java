@@ -52,5 +52,23 @@ public class JarvisImplementation {
 		        	return 1;
 		        }
 		        return 2; 
-		    } 
+		    }
+		 
+		 public static ArrayList<Double> computeDistance(ArrayList<Point> points) {
+			 if (points.size() < 2) {
+		        	throw new IllegalArgumentException("Need more than 2 points");
+		     }
+			     
+			 ArrayList<Double> distances= new ArrayList<Double>();
+			 
+			 for(int i=1;i<points.size();i++) {
+				 double dist=Math.sqrt(Math.pow(points.get(i).getX()-points.get(i-1).getX(), 2)+Math.pow(points.get(i).getY()-points.get(i-1).getY(), 2));
+				 distances.add(dist);
+			 }
+			 double backDist=Math.sqrt(Math.pow(points.get(0).getX()-points.get(points.size()).getX(), 2)+
+					 Math.pow(points.get(0).getY()-points.get(points.size()).getY(), 2));
+			 
+			 distances.add(backDist);
+			 return distances;
+		 }
 }
