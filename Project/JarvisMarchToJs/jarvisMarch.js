@@ -65,13 +65,40 @@ function jarvisMarch(pointArray){
 
     if (pointArray.length < 3) {
         throw new customException('three or more points required');
-    } 
+    }
+    
+    var hullPoints=[];
 
+    // finds the leftmost point
+    var leftTemp=0;
+    for(i=0;i<pointArray.length;i++){
+        if (pointArray[i].x<pointArray[leftTemp].x) {
+            leftTemp=i;
+        }
+    }
+
+    var placeHolder=leftTemp;
+    var right;
+
+    do{
+        hullPoints.push(pointArray[placeHolder]);
+        right = (placeHolder + 1) % pointArray.length(); 
+
+        for (i = 0; i < pointArray.length(); i++) { 
+            if (product(pointArray[placeHolder], pointArray[i], pointArray[right])== 2) 
+                right = i; 
+         } 
+
+         placeHolder=right;
+
+    } while (placeHolder!=right);
+    return hullPoints;
 }
 
 // Execution of the program starts here.
 var points = [];
 var hull = [];
+
 points.push(new Point(0,3));
 points.push(new Point(2,3));
 points.push(new Point(1,1));
