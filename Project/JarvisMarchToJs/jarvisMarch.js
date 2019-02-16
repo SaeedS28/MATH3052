@@ -35,11 +35,31 @@ function product(a,b,c) {
     }
 }
 
+/**
+ * Calculates the Euclidean distance between two consecutive points in the hull array
+ * @param {Point} hullArray array of points that form the convex hull
+ */
+function distanceCalculate(hullArray) {
+    if (hullArray.length<2) {
+        throw new customException("Need at least 2 points");
+    }
+    
+    var distArr=[];
+
+    for(i=1;i<hullArray.length;i++){
+        var dist = Math.sqrt(Math.pow(hullArray[i].x-hullArray[i-1].x, 2)+Math.pow(hullArray[i].y-hullArray[i-1].y, 2));
+        distArr.push(dist);
+    }
+    var backDist=Math.sqrt(Math.pow(hullArray[0].x-hullArray[hullArray.length()-1].x, 2)+Math.pow(hullArray[0].y-hullArray[hullArray.length()-1].y, 2));
+    distArr.push(backDist);
+
+    return distArr;
+}
+
 function jarvisMarch(pointArray){
     /*     
     for (i = 0; i < pointArray.length;i++){
         console.log("Position "+i+" contains "+"("+pointArray[i].x+","+pointArray[i].y+")");
-        
     } 
     */
 
@@ -47,12 +67,11 @@ function jarvisMarch(pointArray){
         throw new customException('three or more points required');
     } 
 
-
 }
 
 // Execution of the program starts here.
 var points = [];
-
+var hull = [];
 points.push(new Point(0,3));
 points.push(new Point(2,3));
 points.push(new Point(1,1));
