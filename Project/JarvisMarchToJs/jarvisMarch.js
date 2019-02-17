@@ -24,15 +24,18 @@ function customException(errorMessage) {
  * @param {Number} c the third 2D point
  */
 function product(a,b,c) {
-    val = (b.x - a.x) * (c.x - b.x) -(b.x - a.x) * (c.y - b.y);
+    val = ((b.y - a.y) * (c.x - b.x))-((b.x - a.x) * (c.y - b.y));
 
+    var ret=-1;
+    
     if (val == 0) {
-        return 0; // collinear
+        ret=0; // collinear
     } else if(val>0){
-        return 1; // left of a
+        ret=1; // left of a
     } else{
-        return 2;// right of a
+        ret=2;// right of a
     }
+    return ret;
 }
 
 /**
@@ -46,6 +49,8 @@ function distanceCalculate(hullArray) {
     
     var distArr=[];
 
+    console.log("Reached");
+
     for(i=1;i<hullArray.length;i++){
         var dist = Math.sqrt(Math.pow(hullArray[i].x-hullArray[i-1].x, 2)+Math.pow(hullArray[i].y-hullArray[i-1].y, 2));
         distArr.push(dist);
@@ -56,49 +61,50 @@ function distanceCalculate(hullArray) {
     return distArr;
 }
 
-function jarvisMarch(pointArray){
-    /*     
-    for (i = 0; i < pointArray.length;i++){
-        console.log("Position "+i+" contains "+"("+pointArray[i].x+","+pointArray[i].y+")");
-    } 
-    */
 
-    if (pointArray.length < 3) {
-        throw new customException('three or more points required');
-    }
-    
+/**
+ * Computes the convex hull via the Jarvis march algorithm and returns the points to the user  
+ * @param {Point} pointArray an array of cartesian points 
+ */
+function jarvisMarch(pointArray){
+    var arrayCopy = pointArray;
+
     var hullPoints=[];
 
     // finds the leftmost point
     var leftTemp=0;
-    for(i=0;i<pointArray.length;i++){
-        if (pointArray[i].x<pointArray[leftTemp].x) {
+    //console.log(leftTemp);
+    for(i=1; i<pointArray.length;i++){
+        if (pointArray[i].x < pointArray[leftTemp].x) {
             leftTemp=i;
         }
+        
     }
-
     var placeHolder=leftTemp;
     var right;
 
     do{
         hullPoints.push(pointArray[placeHolder]);
-        right = (placeHolder + 1) % pointArray.length(); 
-
-        for (i = 0; i < pointArray.length(); i++) { 
-            if (product(pointArray[placeHolder], pointArray[i], pointArray[right])== 2) 
-                right = i; 
+        
+        right = (placeHolder + 1) % pointArray.length; 
+        for (i = 0; i < pointArray.length; i++) { 
+            if (product(pointArray[placeHolder], pointArray[i], pointArray[right])== 2){
+                right=i;
+            }
          } 
 
          placeHolder=right;
 
-    } while (placeHolder!=right);
+    } while (placeHolder!=leftTemp);
+    
+    
     return hullPoints;
 }
 
 // Execution of the program starts here.
 var points = [];
-var hull = [];
-
+var hull= [];
+var distances= [];
 points.push(new Point(0,3));
 points.push(new Point(2,3));
 points.push(new Point(1,1));
@@ -107,9 +113,20 @@ points.push(new Point(3,0));
 points.push(new Point(0,0));
 points.push(new Point(3,3));
 points.push(new Point(2,6));
+points.push(new Point(-2,6));
 
 try {
-    jarvisMarch(points);    
+    hull = jarvisMarch(points);
+    for (i = 0; i < hull.length;i++){
+        console.log("Position "+i+" contains "+"("+hull[i].x+","+hull[i].y+")");
+    }
+    console.log("\n");
+    
+    distances=distanceCalculate(hull);
+    for (i = 0; i < distances.length;i++){
+        console.log("Position "+i+" contains "+"("+distances[i]+")");
+    }
+    
 } catch (e) {
     console.log(e.errorMessage);
 }
