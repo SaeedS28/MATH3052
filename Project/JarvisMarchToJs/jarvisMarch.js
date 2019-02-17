@@ -10,7 +10,7 @@ function Point(x,y) {
 
 /**
  * Creates a custom exception
- * @param {String} errorMessage the custom error message passed by user 
+ * @param {string} errorMessage the custom error message passed by user 
  */
 function customException(errorMessage) {
     this.errorMessage=errorMessage;
@@ -49,13 +49,12 @@ function distanceCalculate(hullArray) {
     
     var distArr=[];
 
-    console.log("Reached");
-
+    
     for(i=1;i<hullArray.length;i++){
         var dist = Math.sqrt(Math.pow(hullArray[i].x-hullArray[i-1].x, 2)+Math.pow(hullArray[i].y-hullArray[i-1].y, 2));
         distArr.push(dist);
     }
-    var backDist=Math.sqrt(Math.pow(hullArray[0].x-hullArray[hullArray.length()-1].x, 2)+Math.pow(hullArray[0].y-hullArray[hullArray.length()-1].y, 2));
+    var backDist=Math.sqrt(Math.pow(hullArray[0].x-hullArray[hullArray.length-1].x, 2)+Math.pow(hullArray[0].y-hullArray[hullArray.length-1].y, 2));
     distArr.push(backDist);
 
     return distArr;
@@ -67,13 +66,16 @@ function distanceCalculate(hullArray) {
  * @param {Point} pointArray an array of cartesian points 
  */
 function jarvisMarch(pointArray){
+    if (pointArray.length < 3) {
+        throw new customException('three or more points required');
+    } 
     var arrayCopy = pointArray;
 
     var hullPoints=[];
 
     // finds the leftmost point
     var leftTemp=0;
-    //console.log(leftTemp);
+
     for(i=1; i<pointArray.length;i++){
         if (pointArray[i].x < pointArray[leftTemp].x) {
             leftTemp=i;
@@ -96,7 +98,6 @@ function jarvisMarch(pointArray){
          placeHolder=right;
 
     } while (placeHolder!=leftTemp);
-    
     
     return hullPoints;
 }
