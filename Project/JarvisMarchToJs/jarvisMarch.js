@@ -69,38 +69,47 @@ function orientation(hullArray) {
     for(i=0;i<hullArray.length-1;i++){
         // top to bottom
         if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
-            orient.push('top-right');
+            orient.push('top-bottom-right');
         }else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
-            orient.push("top-left");
+            orient.push("top-bottom-left");
         }else if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y==hullArray[i+1].y)){
             orient.push("right-right");
         }else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y==hullArray[i+1].y)){
             orient.push("right-left");
+        }else if((hullArray[i].x==hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
+            orient.push("top-bottom");
         }
         
         // bottom to top
         else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
-            orient.push("bottom-right");
-        }else if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
-            orient.push("bottom-left");
+            orient.push("bottom-top-right");
+        }else if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
+            orient.push("bottom-top-left");
+        }
+        else if((hullArray[i].x==hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
+            orient.push("bottom-top");
         }
     }
     
     if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
-        orient.push('top-right');
+        orient.push('top-bottom-right');
     }else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
-        orient.push("top-left");
+        orient.push("top-bottom-left");
     }else if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y==hullArray[0].y)){
         orient.push("right-right");
     }else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y==hullArray[0].y)){
         orient.push("right-left");
+    }else if((hullArray[i].x==hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
+        orient.push("top-bottom");
     }
     
     // bottom to top
     else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y<hullArray[0].y)){
-        orient.push("bottom-right");
-    }else if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
-        orient.push("bottom-left");
+        orient.push("bottom-top-right");
+    }else if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y<hullArray[0].y)){
+        orient.push("bottom-top-left");
+    }else if((hullArray[i].x==hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
+        orient.push("bottom-top");
     }
     console.log("suck it");
     return orient;
