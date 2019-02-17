@@ -60,6 +60,51 @@ function distanceCalculate(hullArray) {
     return distArr;
 }
 
+/**
+ * Checks to see if the next point is right or left of the current point
+ * @param {Point} hullArray 
+ */
+function orientation(hullArray) {
+    var orient=[];
+    for(i=0;i<hullArray.length-1;i++){
+        // top to bottom
+        if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
+            orient.push('top-right');
+        }else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
+            orient.push("top-left");
+        }else if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y==hullArray[i+1].y)){
+            orient.push("right-right");
+        }else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y==hullArray[i+1].y)){
+            orient.push("right-left");
+        }
+        
+        // bottom to top
+        else if((hullArray[i].x<hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
+            orient.push("bottom-right");
+        }else if((hullArray[i].x>hullArray[i+1].x)&&(hullArray[i].y>hullArray[i+1].y)){
+            orient.push("bottom-left");
+        }
+    }
+    
+    if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
+        orient.push('top-right');
+    }else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
+        orient.push("top-left");
+    }else if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y==hullArray[0].y)){
+        orient.push("right-right");
+    }else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y==hullArray[0].y)){
+        orient.push("right-left");
+    }
+    
+    // bottom to top
+    else if((hullArray[hullArray.length-1].x<hullArray[0].x)&&(hullArray[hullArray.length-1].y<hullArray[0].y)){
+        orient.push("bottom-right");
+    }else if((hullArray[hullArray.length-1].x>hullArray[0].x)&&(hullArray[hullArray.length-1].y>hullArray[0].y)){
+        orient.push("bottom-left");
+    }
+    console.log("suck it");
+    return orient;
+}
 
 /**
  * Computes the convex hull via the Jarvis march algorithm and returns the points to the user  
@@ -106,6 +151,7 @@ function jarvisMarch(pointArray){
 var points = [];
 var hull= [];
 var distances= [];
+var orient= [];
 points.push(new Point(0,3));
 points.push(new Point(2,3));
 points.push(new Point(1,1));
@@ -128,6 +174,10 @@ try {
         console.log("Position "+i+" contains "+"("+distances[i]+")");
     }
     
+    orient=orientation(hull);
+    for (i = 0; i < orient.length;i++){
+        console.log("Position "+i+" contains "+"("+orient[i]+")");
+    }
 } catch (e) {
     console.log(e.errorMessage);
 }
