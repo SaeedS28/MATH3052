@@ -61,6 +61,37 @@ function distanceCalculate(hullArray) {
 }
 
 /**
+ * Gets the angles between 2 consecutive points in a convex hull;
+ * @param {Point} hullArray an array of points that make up the convex
+ * hull of a set of points
+ */
+function generateAngle(hullArray){
+    var angles=[];
+
+    for(i=0;i<hullArray.length-1;i++){
+        var y=hullArray[i+1].y-hullArray[i].y;
+        var x=hullArray[i+1].x-hullArray[i].x;
+        var degrees;
+        if(x==0){
+            degrees=90;
+        }else{
+            degrees=Math.abs(Math.atan(y/x)*180/Math.PI);
+        }
+        angles.push(degrees);
+    }
+    var y=hullArray[0].y-hullArray[hullArray.length-1].y;
+    var x=hullArray[0].x-hullArray[hullArray.length-1].x;
+    var degrees;
+    if(x==0){
+        degrees=90;
+    }else{
+        degrees=Math.abs(Math.atan(y/x)*180/Math.PI);
+    }
+    angles.push(degrees);
+    return angles;
+}
+
+/**
  * Checks to see if the next point is right or left of the current point
  * @param {Point} hullArray 
  */
@@ -161,6 +192,8 @@ var points = [];
 var hull= [];
 var distances= [];
 var orient= [];
+var angles= [];
+
 points.push(new Point(0,3));
 points.push(new Point(2,3));
 points.push(new Point(1,1));
@@ -186,6 +219,11 @@ try {
     orient=orientation(hull);
     for (i = 0; i < orient.length;i++){
         console.log("Position "+i+" contains "+"("+orient[i]+")");
+    }
+
+    angles=generateAngle(hull);
+    for (i = 0; i < angles.length;i++){
+        console.log("Position "+i+" contains "+"("+angles[i]+")");
     }
 } catch (e) {
     console.log(e.errorMessage);
