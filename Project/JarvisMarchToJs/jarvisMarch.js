@@ -142,7 +142,7 @@ function orientation(hullArray) {
     }else if((hullArray[i].x==hullArray[i+1].x)&&(hullArray[i].y<hullArray[i+1].y)){
         orient.push("bottom-top");
     }
-    console.log("suck it");
+    
     return orient;
 }
 
@@ -215,16 +215,20 @@ try {
     for (i = 0; i < distances.length;i++){
         console.log("Position "+i+" contains "+"("+distances[i]+")");
     }
+    console.log("\n");
     
     orient=orientation(hull);
     for (i = 0; i < orient.length;i++){
         console.log("Position "+i+" contains "+"("+orient[i]+")");
     }
+    console.log("\n");
 
     angles=generateAngle(hull);
     for (i = 0; i < angles.length;i++){
         console.log("Position "+i+" contains "+"("+angles[i]+")");
     }
+    console.log("\n");
+
 } catch (e) {
     console.log(e.errorMessage);
 }
