@@ -1,0 +1,52 @@
+top-bottom-right
+await calibrateCompass();
+	setCompassDirection(-90);
+	await delay(0.333);
+	resetAim();
+	setHeading(-angle);
+
+
+top-bottom-left
+await calibrateCompass();
+	setCompassDirection(90);
+	await delay(0.333);
+	resetAim();
+	setHeading(angle);
+
+right-right
+await calibrateCompass();
+	setCompassDirection(-90);
+	await delay(0.333);
+	resetAim();
+
+right-left
+await calibrateCompass();
+	setCompassDirection(90);
+	await delay(0.333);
+	resetAim();
+
+top-bottom
+await calibrateCompass();
+	setCompassDirection(180);
+	await delay(0.333);
+	resetAim();
+
+bottom-top
+await calibrateCompass();
+	setCompassDirection(0);
+	await delay(0.333);
+	resetAim();
+
+bottom-top-right
+await calibrateCompass();
+	setCompassDirection(90);
+	await delay(0.333);
+	resetAim();
+	setHeading(-angle);
+
+bottom-top-left
+await calibrateCompass();
+	setCompassDirection(-90);
+	await delay(0.333);
+	resetAim();
+	setHeading(-angle);
