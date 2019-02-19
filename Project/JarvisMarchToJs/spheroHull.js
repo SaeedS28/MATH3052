@@ -217,59 +217,87 @@ async function startProgram() {
 	orient = orientation(hull);
 
 	angles = generateAngle(hull);
+	
+	setBackLed(255);
 
+	//await speak("position " + i + " contains " + hull[i].x + " " + hull[i].y);
+	await calibrateCompass();
+	setCompassDirection(0);
+	await delay(2);
+	
 	while (i < hull.length) { // <-- Check the loop condition
-
+		resetAim();
 		await speak("position " + i + " contains " + hull[i].x + " " + hull[i].y);
-
 		if (orient[i] === "top-bottom-right") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
-			setCompassDirection(-90);
+			setCompassDirection(270);
 			await delay(0.333);
 			resetAim();
+			await delay(0.333);
 			setHeading(-1 * angles[i]);
+			await delay(0.333);
+			resetAim();
 		} else if (orient[i] === "top-bottom-left") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
 			setCompassDirection(90);
 			await delay(0.333);
 			resetAim();
+			await delay(0.333);
 			setHeading(angles[i]);
+			await delay(0.333);
+			resetAim();
 		} else if (orient[i] === "right-right") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
-			setCompassDirection(-90);
+			setCompassDirection(270);
 			await delay(0.333);
 			resetAim();
 		} else if (orient[i] === "right-left") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
 			setCompassDirection(90);
 			await delay(0.333);
 			resetAim();
 		} else if (orient[i] === "top-bottom") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
 			setCompassDirection(180);
 			await delay(0.333);
 			resetAim();
 		} else if (orient[i] === "bottom-top") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
 			setCompassDirection(0);
 			await delay(0.333);
 			resetAim();
 		} else if (orient[i] === "bottom-top-right") {
+			await speak("go to " + orient[i]);
 			await calibrateCompass();
 			setCompassDirection(90);
 			await delay(0.333);
 			resetAim();
+			await delay(0.333);
 			setHeading(-1 * angles[i]);
-		} else if (orient[i] === "bottom-top-left") {
-			await calibrateCompass();
-			setCompassDirection(-90);
 			await delay(0.333);
 			resetAim();
+		} else if (orient[i] === "bottom-top-left") {
+			await speak("go to " + orient[i]);
+			await calibrateCompass();
+			setCompassDirection(270);
+			await delay(0.333);
+			resetAim();
+			await delay(0.333);
 			setHeading(angles[i]);
-			
+			await delay(0.333);
+			resetAim();
 		}
+		resetAim();
+		await delay(0.333);
 		await roll(0, 50, distances[i] / 2)
 		stopRoll();
+		await delay(1);
 		++i; // <-- Update the loop variable (in this case, add 1 to it)
 	}
 	
